@@ -151,7 +151,7 @@ h2::before{content:"";display:inline-block;width:22px;height:22px;margin-right:8
 <form class="sr" id="sf"><input id="q" placeholder="পণ্য খুঁজুন · Search products" aria-label="Search"><button>খুঁজুন</button></form>
 <div class="ic"><a class="ib" href="#/me">অ্যাকাউন্ট</a><a class="ib" href="#/cart">কার্ট<span class="bd" id="cc">0</span></a><button class="ib" id="mb" aria-label="Menu">☰</button></div></div>
 <nav class="menu" id="mn"><a href="#/">হোম</a><a href="#/products">সব পণ্য</a><a href="#/store/panchagarh-handloom">দোকান</a><a href="#/help">সাহায্য</a><a href="#/sell">বিক্রেতা হন</a></nav></div></header>
-<div class="w sl" id="dbStatus" role="status" style="padding-top:6px">Supabase সংযোগ পরীক্ষা হচ্ছে…</div><main class="w" id="app"></main>
+<main class="w" id="app"><p class="sl" style="padding:24px 0">লোড হচ্ছে…</p></main>
 <footer><div class="w"><div class="g">
 <div><b style="font-size:24px;font-family:Galada,cursive">বাংলা শপ</b><p>A Marketplace for Everyone.<br>সবার জন্য একটি মার্কেটপ্লেস।</p></div>
 <div><b>কেনাকাটা</b><a href="#/products">সব পণ্য</a><a href="#/cart">কার্ট</a><a href="#/help">সাহায্য ও নীতি</a></div>
@@ -239,7 +239,7 @@ clearInterval(window.cdt);const f=x=>{x=Math.floor(x);return (x<10?'০':'')+bn(
   <a class="sel" href="#/store/${s.id}" style="margin:10px 0"><div class="av" style="${bg(s.h)}">${s.e}</div><div><b>${s.n}</b><div class="sl">দোকান দেখুন</div></div></a>
   <ul class="sf"><li>ক্যাশ অন ডেলিভারি পাওয়া যাবে</li><li>ডেলিভারি সময় এলাকা ও বিক্রেতা অনুযায়ী ভিন্ন হয়</li><li>ত্রুটিপূর্ণ বা ভুল পণ্যে রিটার্ন নীতি প্রযোজ্য, <a href="#/help" style="color:var(--pr)">বিস্তারিত</a></li></ul><div class="q"><button id="mi">−</button><span id="qv">১</span><button id="pl">+</button></div>
   <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button class="btn o" ${p.st?'':'disabled'} id="ac">কার্টে যোগ করুন</button><button class="btn" ${p.st?'':'disabled'} id="bu">এখনই কিনুন</button></div></div></div>
-  <h2>গ্রাহকদের মতামত</h2>${[['রহিম উদ্দিন','খুব ভালো মান, সময়মতো পেয়েছি।'],['সুমাইয়া','ছবির মতোই পণ্য। আবার কিনব।']].map(r=>`<div class="rv"><b>${r[0]}</b> ${ST.repeat(5)}<br>${r[1]}</div>`).join('')}<p class="sl">নমুনা রিভিউ। আসল রিভিউ ব্যাকএন্ড যুক্ত হলে চালু হবে।</p>
+  <h2>গ্রাহকদের মতামত</h2>${[['রহিম উদ্দিন','খুব ভালো মান, সময়মতো পেয়েছি।'],['সুমাইয়া','ছবির মতোই পণ্য। আবার কিনব।']].map(r=>`<div class="rv"><b>${r[0]}</b> ${ST.repeat(5)}<br>${r[1]}</div>`).join('')}<p class="sl">নমুনা রিভিউ। আসল রিভিউ শীঘ্রই চালু হবে।</p>
   <h2>সম্পর্কিত পণ্য</h2><div class="grid">${P.filter(x=>x.c==p.c&&x.id!=p.id||x.s==p.s&&x.id!=p.id).slice(0,4).map(card).join('')}</div>`;
   const u=()=>$('#qv').textContent=bn(q1);$('#mi').onclick=()=>{q1=Math.max(1,q1-1);u()};$('#pl').onclick=()=>{q1=Math.min(p.st||1,q1+1);u()};
   $('#ac').onclick=()=>add(p.id,q1);$('#bu').onclick=()=>{add(p.id,q1);location.hash='#/cart'};
@@ -249,12 +249,12 @@ clearInterval(window.cdt);const f=x=>{x=Math.floor(x);return (x<10?'০':'')+bn(
   <h1 style="margin:8px 0 0">${s.n}</h1><p class="sl">${s.d}</p>`+list(P.filter(p=>p.s==s.id),'/store/'+s.id,q,c,mx,so,pg);bindList('/store/'+s.id)}
  else if(path=='/cart'){const ids=Object.keys(cart);const tot=ids.reduce((a,i)=>a+cart[i]*P.find(p=>p.id==i).p,0);
   app.innerHTML=`<h1>আপনার কার্ট</h1>`+(ids.length?ids.map(i=>{const p=P.find(x=>x.id==i);return `<div class="row"><div class="av" style="${bg(p.h)}">${p.e}</div><div style="flex:1"><a href="#/p/${p.id}"><b>${p.n}</b></a><div class="sl">${sel(p.s).n}</div></div><div>${tk(p.p)} × ${bn(cart[i])}</div><button class="btn o" onclick="delete cart[${i}];save();route()">সরান</button></div>`}).join('')+`<h2>মোট: ${tk(tot)}</h2><a class="btn" href="#/checkout">চেকআউটে যান</a><p class="sl">ডেমো সংস্করণে অর্ডার বা পেমেন্ট প্রক্রিয়া চালু নেই।</p>`:`<p>কার্ট খালি। <a href="#/products" style="color:var(--pr);font-weight:600">পণ্য দেখুন</a></p>`)}
- else if(path=='/me'){const GM=[['স্মৃতি-মেলা','ইলিশ, শাপলা, রিকশা মেলান','memory'],['নৌকা বাইচ','১০ সেকেন্ডে বৈঠা মারুন','boat'],['ঐতিহ্য কুইজ','ইতিহাস ও ঐতিহ্যের প্রশ্ন','quiz']];app.innerHTML=`<div class="pf"><div class="pa">${art(1)}</div><div><h1 style="margin:0">${window.currentSupabaseUser?escapeHtml(window.currentSupabaseUser.user_metadata?.full_name||window.currentSupabaseUser.email):'অতিথি'}</h1><div class="sl">${bn(Object.values(wish).filter(Boolean).length)}টি উইশলিস্ট</div><div style="margin-top:6px">${window.currentSupabaseUser?'<button class="btn o" id="logoutBtn">লগআউট</button>':'<a class="btn" href="#/login">লগইন</a> <a class="btn o" href="#/register">নিবন্ধন</a>'}</div></div></div>${dm('লগইন ও অর্ডারের তথ্য ব্যাকএন্ড (Supabase) যুক্ত হলে চালু হবে।')}<h2>বাংলার খেলা</h2><div class="gms">${GM.map((g,i)=>`<a href="#/game/${g[2]}">${art(i+2)}<b>${g[0]}</b><br><span class="sl">${g[1]}</span></a>`).join('')}</div><div class="hd"><h2>আমার অর্ডার</h2><span class="sl">লগইনের পর চালু</span></div><div class="od">${['পেমেন্ট বাকি','শিপ হবে','পৌঁছাবে','রিভিউ','রিটার্ন ও বাতিল'].map((t,i)=>`<div>${art(i)}${t}</div>`).join('')}</div><h2>সম্প্রতি দেখা</h2>${rvw.length?`<div class="hs">${rvw.map(id=>card(P.find(p=>p.id==id))).join('')}</div>`:'<p class="sl">যে পণ্যগুলো দেখবেন, এখানে ফিরে পাবেন।</p><a class="btn" href="#/products">কেনাকাটা চালিয়ে যান</a>'}`;if(window.currentSupabaseUser){const lb=document.getElementById('logoutBtn');if(lb)lb.onclick=async()=>{const {error}=await supabase.auth.signOut();if(error)toast(error.message);else{toast('লগআউট হয়েছে');route()}}}}
+ else if(path=='/me'){const GM=[['স্মৃতি-মেলা','ইলিশ, শাপলা, রিকশা মেলান','memory'],['নৌকা বাইচ','১০ সেকেন্ডে বৈঠা মারুন','boat'],['ঐতিহ্য কুইজ','ইতিহাস ও ঐতিহ্যের প্রশ্ন','quiz']];app.innerHTML=`<div class="pf"><div class="pa">${art(1)}</div><div><h1 style="margin:0">${window.currentUser?escapeHtml(window.currentUser.user_metadata?.full_name||window.currentUser.email):'অতিথি'}</h1><div class="sl">${bn(Object.values(wish).filter(Boolean).length)}টি উইশলিস্ট</div><div style="margin-top:6px">${window.currentUser?'<button class="btn o" id="logoutBtn">লগআউট</button>':'<a class="btn" href="#/login">লগইন</a> <a class="btn o" href="#/register">নিবন্ধন</a>'}</div></div></div>${dm('লগইন ও অর্ডারের তথ্য শীঘ্রই চালু হবে।')}<h2>বাংলার খেলা</h2><div class="gms">${GM.map((g,i)=>`<a href="#/game/${g[2]}">${art(i+2)}<b>${g[0]}</b><br><span class="sl">${g[1]}</span></a>`).join('')}</div><div class="hd"><h2>আমার অর্ডার</h2><span class="sl">লগইনের পর চালু</span></div><div class="od">${['পেমেন্ট বাকি','শিপ হবে','পৌঁছাবে','রিভিউ','রিটার্ন ও বাতিল'].map((t,i)=>`<div>${art(i)}${t}</div>`).join('')}</div><h2>সম্প্রতি দেখা</h2>${rvw.length?`<div class="hs">${rvw.map(id=>card(P.find(p=>p.id==id))).join('')}</div>`:'<p class="sl">যে পণ্যগুলো দেখবেন, এখানে ফিরে পাবেন।</p><a class="btn" href="#/products">কেনাকাটা চালিয়ে যান</a>'}`;if(window.currentUser){const lb=document.getElementById('logoutBtn');if(lb)lb.onclick=async()=>{const {error}=await supabase.auth.signOut();if(error)toast('একটি সমস্যা হয়েছে, আবার চেষ্টা করুন');else{toast('লগআউট হয়েছে');route()}}}}
  else if(m[1]=='game'){const G={memory:['স্মৃতি-মেলা',memory],boat:['নৌকা বাইচ',boat],quiz:['ঐতিহ্য কুইজ',quiz]}[m[2]];if(!G)return nf();app.innerHTML=`<h1>${G[0]}</h1><div id="gm"></div><p><a href="#/me" style="color:var(--pr)">অ্যাকাউন্টে ফিরে যান</a></p>`;G[1]()}
  else if(path=='/login'||path=='/register'){
   const r=path=='/register';
   app.innerHTML=`<h1>${r?'নতুন অ্যাকাউন্ট':'লগইন'}</h1>
-  <div class="dm">Supabase Authentication চালু আছে। আপাতত ইমেইল ও পাসওয়ার্ড ব্যবহার করুন।</div>
+  <div class="dm">ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।</div>
   <form class="fm" id="authForm">
     ${r?'<label class="fl">পূর্ণ নাম<input id="authName" type="text" required autocomplete="name" placeholder="আপনার নাম"></label>':''}
     <label class="fl">ইমেইল<input id="authEmail" type="email" required autocomplete="email" placeholder="name@example.com"></label>
@@ -280,13 +280,13 @@ clearInterval(window.cdt);const f=x=>{x=Math.floor(x);return (x<10?'০':'')+bn(
         msg.textContent='লগইন সফল হয়েছে!';
         setTimeout(()=>location.hash='#/me',700);
       }
-    }catch(err){msg.textContent='সমস্যা: '+(err.message||'আবার চেষ্টা করুন');}
+    }catch(err){msg.textContent='একটি সমস্যা হয়েছে, আবার চেষ্টা করুন';}
     finally{btn.disabled=false;}
   };
 }
  else if(path=='/wish'){app.innerHTML=`<h1>উইশলিস্ট</h1>${dm('এখন শুধু এই ট্যাবে থাকে, লগইনের পর অ্যাকাউন্টে সংরক্ষিত হবে।')}<div class="grid">${P.filter(p=>wish[p.id]).map(card).join('')||'<p>খালি। পণ্যের কার্ডের হৃদয় আইকনে চাপুন।</p>'}</div>`}
- else if(path=='/apply'){app.innerHTML=`<h1>বিক্রেতা আবেদন</h1>${dm('জমা দেওয়ার সুবিধা ব্যাকএন্ড যুক্ত হলে চালু হবে। পরিচয়ের তথ্য নেওয়ার আগে নিরাপদ সংরক্ষণ নিশ্চিত করতে হবে।')}<div class="fm">${fl('পূর্ণ নাম')}${fl('ইমেইল','email')}${fl('মোবাইল নম্বর','tel','01XXXXXXXXX','pattern="01[3-9][0-9]{8}" maxlength="11" inputmode="numeric"')}${fl('দোকানের নাম')}<label class="fl">দোকানের বিবরণ<textarea rows="3"></textarea></label>${fl('দোকানের লোগো','file')}${fl('দোকানের ব্যানার','file')}${fl('ব্যবসার ঠিকানা')}<label class="fl">ব্যবসার ক্যাটাগরি<select>${CATS.map(c=>`<option>${c[0]}</option>`).join('')}</select></label>${fl('যাচাইয়ের তথ্য (ট্রেড লাইসেন্স বা NID নম্বর)')}<button class="btn" disabled>আবেদন জমা দিন</button><p class="sl">আবেদনের অবস্থা: পেন্ডিং, অনুমোদিত, বাতিল বা সাময়িক বন্ধ। অ্যাডমিন অনুমোদনের পর পণ্য প্রকাশ করা যাবে।</p></div>`}
- else if(path=='/checkout'){const ids=Object.keys(cart);if(!ids.length){location.hash='#/cart';return}const g={};let tot=0;ids.forEach(i=>{const p=P.find(x=>x.id==i);(g[p.s]=g[p.s]||[]).push(p);tot+=p.p*cart[i]});app.innerHTML=`<h1>চেকআউট</h1>${dm('ডেমো: ব্যাকএন্ড যুক্ত হওয়ার আগে অর্ডার জমা হবে না।')}<div class="fm">${fl('পূর্ণ নাম')}${fl('মোবাইল নম্বর','tel','01XXXXXXXXX','pattern="01[3-9][0-9]{8}" maxlength="11" inputmode="numeric"')}<label class="fl">জেলা<select>${DIST.split(',').map(d=>`<option>${d}</option>`).join('')}</select></label>${fl('এলাকা বা থানা')}${fl('পূর্ণ ঠিকানা')}<label class="fl">ডেলিভারি পদ্ধতি<select><option>স্ট্যান্ডার্ড (চার্জ পরে নির্ধারিত)</option></select></label><label class="fl">পেমেন্ট<select><option>ক্যাশ অন ডেলিভারি</option></select></label><h2>অর্ডার সারাংশ</h2><p class="sl">একাধিক বিক্রেতার পণ্য আলাদা সাব-অর্ডারে ভাগ হবে।</p>${Object.keys(g).map(k=>`<div class="rv"><b>${sel(k).n}</b>${g[k].map(p=>`<div class="sl">${p.n} × ${bn(cart[p.id])} = ${tk(p.p*cart[p.id])}</div>`).join('')}</div>`).join('')}<h2>পণ্যের মোট: ${tk(tot)}</h2><p class="sl">ডেলিভারি চার্জ আলাদাভাবে দেখানো হবে।</p><button class="btn" disabled>অর্ডার নিশ্চিত করুন</button></div>`}
+ else if(path=='/apply'){app.innerHTML=`<h1>বিক্রেতা আবেদন</h1>${dm('জমা দেওয়ার সুবিধা শীঘ্রই চালু হবে। পরিচয়ের তথ্য নেওয়ার আগে নিরাপদ সংরক্ষণ নিশ্চিত করতে হবে।')}<div class="fm">${fl('পূর্ণ নাম')}${fl('ইমেইল','email')}${fl('মোবাইল নম্বর','tel','01XXXXXXXXX','pattern="01[3-9][0-9]{8}" maxlength="11" inputmode="numeric"')}${fl('দোকানের নাম')}<label class="fl">দোকানের বিবরণ<textarea rows="3"></textarea></label>${fl('দোকানের লোগো','file')}${fl('দোকানের ব্যানার','file')}${fl('ব্যবসার ঠিকানা')}<label class="fl">ব্যবসার ক্যাটাগরি<select>${CATS.map(c=>`<option>${c[0]}</option>`).join('')}</select></label>${fl('যাচাইয়ের তথ্য (ট্রেড লাইসেন্স বা NID নম্বর)')}<button class="btn" disabled>আবেদন জমা দিন</button><p class="sl">আবেদনের অবস্থা: পেন্ডিং, অনুমোদিত, বাতিল বা সাময়িক বন্ধ। অ্যাডমিন অনুমোদনের পর পণ্য প্রকাশ করা যাবে।</p></div>`}
+ else if(path=='/checkout'){const ids=Object.keys(cart);if(!ids.length){location.hash='#/cart';return}const g={};let tot=0;ids.forEach(i=>{const p=P.find(x=>x.id==i);(g[p.s]=g[p.s]||[]).push(p);tot+=p.p*cart[i]});app.innerHTML=`<h1>চেকআউট</h1>${dm('ডেমো: অর্ডার গ্রহণের সুবিধা শীঘ্রই চালু হবে।')}<div class="fm">${fl('পূর্ণ নাম')}${fl('মোবাইল নম্বর','tel','01XXXXXXXXX','pattern="01[3-9][0-9]{8}" maxlength="11" inputmode="numeric"')}<label class="fl">জেলা<select>${DIST.split(',').map(d=>`<option>${d}</option>`).join('')}</select></label>${fl('এলাকা বা থানা')}${fl('পূর্ণ ঠিকানা')}<label class="fl">ডেলিভারি পদ্ধতি<select><option>স্ট্যান্ডার্ড (চার্জ পরে নির্ধারিত)</option></select></label><label class="fl">পেমেন্ট<select><option>ক্যাশ অন ডেলিভারি</option></select></label><h2>অর্ডার সারাংশ</h2><p class="sl">একাধিক বিক্রেতার পণ্য আলাদা সাব-অর্ডারে ভাগ হবে।</p>${Object.keys(g).map(k=>`<div class="rv"><b>${sel(k).n}</b>${g[k].map(p=>`<div class="sl">${p.n} × ${bn(cart[p.id])} = ${tk(p.p*cart[p.id])}</div>`).join('')}</div>`).join('')}<h2>পণ্যের মোট: ${tk(tot)}</h2><p class="sl">ডেলিভারি চার্জ আলাদাভাবে দেখানো হবে।</p><button class="btn" disabled>অর্ডার নিশ্চিত করুন</button></div>`}
  else if(path=='/seller-dash'){app.innerHTML=`<h1>সেলার ড্যাশবোর্ড</h1>${dm('নমুনা ডেটা, ডেমো ভিউ। আসল সিস্টেমে লগইন ও অ্যাডমিন অনুমোদন লাগবে।')}${kp([['মোট পণ্য','১২'],['মোট অর্ডার','৪৮'],['পেন্ডিং অর্ডার','৫'],['সম্পন্ন অর্ডার','৩৯'],['মোট গ্রস বিক্রয়','৳৮৪,৫০০'],['সাবস্ক্রিপশন','প্রফেশনাল'],['মেয়াদ শেষ','নমুনা তারিখ'],['মজুত','২৩০টি']])}<p class="sl">বিক্রয়ের পুরো অঙ্ক দেখানো হয়, কোনো কমিশন কাটা হয় না।</p><h2>সাম্প্রতিক অর্ডার</h2>${tb(['অর্ডার','পণ্য','অবস্থা'],[['#১০০১','জামদানি শাড়ি','পেন্ডিং'],['#১০০২','সুতির পাঞ্জাবি','শিপড'],['#১০০৩','নকশিকাঁথা বেডশিট','ডেলিভারড']])}<h2>মডিউল</h2><div class="bar">${['পণ্য ম্যানেজমেন্ট','অর্ডার','স্টোর সেটিংস','অ্যানালিটিক্স','সাবস্ক্রিপশন','সাপোর্ট'].map(m=>`<button class="btn o" disabled>${m}</button>`).join('')}</div>`}
  else if(path=='/admin'){app.innerHTML=`<h1>সুপার অ্যাডমিন</h1>${dm('নমুনা ডেটা, ডেমো ভিউ। আসল সিস্টেমে শুধু অনুমোদিত অ্যাডমিন দেখবেন।')}${kp([['মোট ক্রেতা','৩২০'],['মোট সেলার','৪৫'],['সক্রিয় সেলার','৩৮'],['পেন্ডিং আবেদন','৪'],['সাবস্ক্রিপশন রাজস্ব','৳১৮,৫০০'],['পেন্ডিং পেমেন্ট যাচাই','৩']])}<p class="sl">প্ল্যাটফর্মের আয় শুধু সাবস্ক্রিপশন ফি থেকে।</p><h2>সেলার আবেদন</h2>${tb(['দোকান','অবস্থা','পদক্ষেপ'],[['নমুনা দোকান ক','পেন্ডিং','<button class="btn o" disabled>অনুমোদন</button>'],['নমুনা দোকান খ','অনুমোদিত','<button class="btn o" disabled>সাময়িক বন্ধ</button>'],['নমুনা দোকান গ','বাতিল','—']])}`}
  else if(m[1]=='pg'){const T={about:['আমাদের কথা','বাংলা শপ একটি সাবস্ক্রিপশন-ভিত্তিক মার্কেটপ্লেস, যেখানে বিক্রেতারা নিজের দোকান খুলে ক্রেতাদের কাছে পণ্য বিক্রি করেন।'],contact:['যোগাযোগ','ফোন ও ইমেইল চালুর আগে যোগ করা হবে।'],privacy:['গোপনীয়তা নীতি','খসড়া বাকি। ক্রেতার তথ্য কীভাবে সংরক্ষিত ও ব্যবহৃত হবে তা আইনি পরামর্শ নিয়ে লিখতে হবে।'],terms:['শর্তাবলি','খসড়া বাকি। ক্রেতা, বিক্রেতা ও প্ল্যাটফর্মের শর্ত আইনি পরামর্শ নিয়ে লিখতে হবে।']}[m[2]];if(!T)return nf();app.innerHTML=`<h1>${T[0]}</h1><p>${T[1]}</p>`}
@@ -313,7 +313,6 @@ $('#mb').onclick=()=>$('#mn').classList.toggle('o');
 addEventListener('hashchange',route);
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function safeImageUrl(v){try{const u=new URL(v);return u.protocol==='https:'?escapeHtml(u.href):'';}catch{return ''}}
-let dbReady=false;
 async function loadMarketplaceData(){
   try{
     const [{data:cats,error:ce},{data:vendors,error:ve},{data:products,error:pe}]=await Promise.all([
@@ -323,9 +322,7 @@ async function loadMarketplaceData(){
     ]);
     if(ce||ve||pe) throw ce||ve||pe;
     if(cats?.length){
-      const old=CATS.slice();
       CATS.splice(0,CATS.length,...cats.map(c=>[c.name,'🛍️',c.id]));
-      window.dbCategoryRows=cats;
     }
     if(vendors?.length){
       S.splice(0,S.length,...vendors.map((v,i)=>({id:v.slug,n:v.business_name,e:art(i+2),d:v.description||'অনুমোদিত বাংলা শপ বিক্রেতা',h:150+i*37,dbId:v.id})));
@@ -345,27 +342,22 @@ async function loadMarketplaceData(){
       });
       P.splice(0,P.length,...live);
     }
-    dbReady=true;
-    const status=document.getElementById('dbStatus');if(status)status.textContent='Supabase সংযুক্ত · লাইভ ডেটা';
     route();
   }catch(err){
-    console.error('Supabase data load:',err);
-    const status=document.getElementById('dbStatus');if(status)status.textContent='Supabase সংযুক্ত, ডেটা লোড হয়নি: '+(err.message||'');
+    // Live catalog unavailable — keep the built-in catalog, stay silent in the UI
+    console.warn('Live catalog load failed, using built-in catalog:',err);
   }
 }
 async function refreshAuthUI(){
   const {data:{session}}=await supabase.auth.getSession();
-  window.currentSupabaseUser=session?.user||null;
-  const status=document.getElementById('authStatus');
-  if(status)status.textContent=session?.user?`লগইন: ${session.user.email}`:'অতিথি · লগইন করুন';
+  window.currentUser=session?.user||null;
 }
 supabase.auth.onAuthStateChange((_event, session)=>{
-  window.currentSupabaseUser=session?.user||null;
+  window.currentUser=session?.user||null;
   refreshAuthUI();
 });
 supabase.auth.getSession().then(({data})=>{
-  window.currentSupabaseUser=data.session?.user||null;
-  refreshAuthUI();
+  window.currentUser=data.session?.user||null;
 });
 loadMarketplaceData();
 save();route();
